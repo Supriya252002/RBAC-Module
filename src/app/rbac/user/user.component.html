@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2>User Management</h2>
+  <div class="d-flex justify-content-between mb-3" *ngIf="!newUser && !editingUser">
+    <button class="btn btn-primary" (click)="addUser()">Add User</button>
+  </div>
+
+  <div *ngIf="newUser || editingUser" class="mb-3">
+    <form [formGroup]="userForm" (ngSubmit)="saveUser()" class="card p-4 shadow-sm">
+      <h3 class="card-title mb-4">{{ newUser ? 'Add New User' : 'Edit User' }}</h3>
+
+      <div class="form-group mb-3">
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" class="form-control" placeholder="Enter name"
+          [ngClass]="{ 'is-invalid': userForm.get('name')?.invalid && userForm.get('name')?.touched }" />
+        <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="invalid-feedback">
+          Name is required and must be at least 3 characters long.
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" class="form-control" placeholder="Enter email"
+          [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && userForm.get('email')?.touched }" />
+        <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="invalid-feedback">
+          A valid email is required.
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="status">Status:</label>
+        <select id="status" formControlName="status" class="form-control">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="roles">Roles:</label>
+        <input id="roles" formControlName="roles" class="form-control" placeholder="Enter roles (e.g., Admin, User)"  
+          [ngClass]="{ 'is-invalid': userForm.get('roles')?.invalid && userForm.get('roles')?.touched }"/>
+        <div *ngIf="userForm.get('roles')?.invalid && userForm.get('roles')?.touched" class="invalid-feedback">
+          Roles are required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-sm mb-2" [disabled]="userForm.invalid">Save</button>
+      <button type="button" class="btn btn-secondary btn-sm ml-2" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <table class="table table-bordered" *ngIf="!newUser && !editingUser">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Roles</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.status }}</td>
+        <td>{{ user.roles }}</td> 
+        <td>
+          <button class="btn btn-warning btn-sm m" (click)="editUser(user)">Edit</button>
+          <button *ngIf="user.id" class="btn btn-danger btn-sm button-space" (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

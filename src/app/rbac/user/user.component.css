@@ -1,0 +1,19 @@
+h2 {
+  color: #333;
+}
+
+.card {
+  background-color: #f8f9fa;
+}
+
+.card-title {
+  color: #007bff;
+  font-size: 1.25rem;
+}
+
+button:disabled {
+  opacity: 0.65;
+}
+.button-space {
+  margin-left: 8px; 
+}

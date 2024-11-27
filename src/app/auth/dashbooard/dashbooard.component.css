@@ -1,0 +1,25 @@
+.custom-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
+}
+
+.custom-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(135, 176, 220, 0.5);
+}
+
+.custom-btn:active {
+    background-color: #003366;
+    transform: scale(0.98);
+}

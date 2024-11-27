@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <h2>Role Management</h2>
+  <div class="d-flex justify-content-between mb-3" *ngIf="!newRole && !editingRole">
+    <button class="btn btn-primary" (click)="addRole()">Add Role</button>
+  </div>
+
+  <div *ngIf="newRole || editingRole" class="mb-4">
+    <form [formGroup]="roleForm" (ngSubmit)="saveRole()" class="card p-4 shadow-sm">
+      <h3 class="card-title mb-4">{{ newRole ? 'Add New Role' : 'Edit Role' }}</h3>
+
+      <div class="form-group mb-3">
+        <label for="roleName">Role Name</label>
+        <input id="roleName" formControlName="roleName" type="text" class="form-control" placeholder="Enter role name"
+          [ngClass]="{ 'is-invalid': roleForm.get('roleName')?.invalid && roleForm.get('roleName')?.touched }">
+        <div *ngIf="roleForm.get('roleName')?.invalid && roleForm.get('roleName')?.touched" class="invalid-feedback">
+          Role name is required.
+        </div>
+      </div>
+
+      <div formGroupName="permissions" class="mb-4">
+        <label>Permissions</label>
+        <div class="form-check">
+          <input type="checkbox" formControlName="read" class="form-check-input" id="readPermission">
+          <label class="form-check-label" for="readPermission">Read</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" formControlName="write" class="form-check-input" id="writePermission">
+          <label class="form-check-label" for="writePermission">Write</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" formControlName="delete" class="form-check-input" id="deletePermission">
+          <label class="form-check-label" for="deletePermission">Delete</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-sm mb-2" [disabled]="roleForm.invalid">Save</button>
+      <button type="button" class="btn btn-secondary btn-sm ml-2" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+
+  <table class="table table-bordered" *ngIf="!newRole && !editingRole">
+    <thead>
+      <tr>
+        <th>Role Name</th>
+        <th>Permissions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td>{{ role.roleName }}</td>
+        <td>
+          <span *ngIf="role.permissions.read">Read </span>
+          <span *ngIf="role.permissions.write">Write </span>
+          <span *ngIf="role.permissions.delete">Delete</span>
+        </td>
+        <td>
+          <button class="btn btn-warning btn-sm m" (click)="editRole(role)">Edit</button>
+          <button class="btn btn-danger btn-sm button-space" (click)="deleteRole(role.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
