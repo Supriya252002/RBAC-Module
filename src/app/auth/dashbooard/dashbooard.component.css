@@ -1,3 +1,15 @@
+.rbac-dashboard {
+    background-image: url('/Images/J4o.gif');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    height: 100vh; 
+    width: 100%; 
+}
+
+h1{
+    color: #fff;
+}
 .custom-btn {
     padding: 10px 20px;
     font-size: 16px;
